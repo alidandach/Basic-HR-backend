@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  hr-app:
+    image: 'hr-app:latest'
+    build:
+      context: .
+    container_name: hr-app
+    depends_on:
+      - postgres-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/hr-app
+      - SPRING_DATASOURCE_USERNAME=hr-app
+      - SPRING_DATASOURCE_PASSWORD=hr-app
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres-db:
+    image: 'postgres:13.1-alpine'
+    container_name: postgres-hr-app-db
+    environment:
+      - POSTGRES_USER=hr-app
+      - POSTGRES_PASSWORD=hr-app
