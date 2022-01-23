@@ -11,7 +11,6 @@ spring:
     password: root
     url: jdbc:postgresql://localhost:5432/hr-app
     driver-class-name: org.postgresql.Driver
-    data: classpath*:schema.sql
     hikari:
       minimumIdle: 5
       maximumPoolSize: 20
@@ -42,8 +41,15 @@ spring:
   output:
     ansi:
       enabled: always
+  sql:
+    init:
+      data-locations: classpath*:schema.sql
 
 logging:
   config: src/main/resources/log4j2.xml
   file:
     name: logs/${spring.application.name}.log
+
+ba:
+  username: admin
+  password: admin
