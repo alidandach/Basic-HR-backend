@@ -1,32 +1,31 @@
 # Getting Started
 
-#### I write this challenge using java and based on Spring/Spring boot Framework. I use keycloak for authentication. You can run it using `docker-compose up`. The docker-compose has three phases to run this application:
-1. pull postgres database, keycloak and this application
-2. run postgres
-3. run keycloak
-4. run the API
+#### I wrote this challenge using java and based on Spring/Spring boot Framework with Postgres. I use basic authentication for authentication. 
 
-### Run Instruction using docker
-- 'docker-compose up'
+The docker-compose has three phases to run this application:
+1. pull postgres database
+2. run postgres db
+3. run the API
 
-###### Note:
-1- I can't import/export keycloak configuration because I face some issues when the docker-compose launch the application,
-so please after a success running you need to login to the keycloak UI `http://localhost:8080/auth/` and create a new client-id,
-roles (employee, manager) and users, or you can disable the authentication mechanism under 'src/main/resources/docker.yaml'
-(but you need to build new image using 'docker build -t alidandach/hr-app:latest .')
+###### Note: The API contains initial data
 
-2- The running containers reserve the following ports : 5432 (postgres), 8080(keycloak), 8088 (API) and you can change it from `docker-compose.yml`
+### Run Instruction using docker:
+1. clone the project
+2. navigate to the project director
+3. `docker build . -t hr-app:latest`
+4. `docker-compose up`
+
+###### Note: The running container reserve the port 9595 for API and you can change it from `docker-compose.yml`
 
 ### Run Instruction without docker
 - Make sure you have java 11
 - create a new db named 'hr-db' on your postgresql server (You can edit `src/main/resources/application.yaml` if you want to change the db name)
-- I have disabled the authentication mechanism under `src/main/resources/application.yaml`
-- At the runtime the API create a new schema and tables
+- At the runtime the API create a new schema and tables with initial data
 - You can build a new jar file using maven `./mvn package`
 - Run it using java `java -jar target/hr-app.jar`
 
 
 ### Overall:
 - You have the postman collection `Challenge 1.postman_collection.json`
-- Also, I put swagger
+- Also, I put swagger `http://localhost:9595/swagger-ui`
 - I write test cases

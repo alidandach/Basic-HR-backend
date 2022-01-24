@@ -15,6 +15,8 @@ public class ClientResponse<T extends ClientData> {
     private T data;
     private List<Violation> violations;
 
+    private List<ErrorDetail> errorDetails;
+
     public ClientResponse(StatusCode code) {
         this.code = code.getCode();
         this.status = code.getMessage();
@@ -30,5 +32,11 @@ public class ClientResponse<T extends ClientData> {
         if (violations == null)
             violations = new ArrayList<>();
         violations.add(violation);
+    }
+
+    public void addError(String error) {
+        if (errorDetails == null)
+            errorDetails = new ArrayList<>();
+        errorDetails.add(new ErrorDetail(error));
     }
 }

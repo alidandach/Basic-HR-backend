@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Error extends ClientData {
-    private String details;
+public class ErrorDetail {
+    private String reason;
 }

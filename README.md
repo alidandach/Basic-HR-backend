@@ -1,3 +1,3 @@
 # Basic-HR-backend
-Example Spring/Spring boot wit PostgreSQL for basic HR backend
+Example Spring/Spring boot with PostgreSQL for basic HR backend
 

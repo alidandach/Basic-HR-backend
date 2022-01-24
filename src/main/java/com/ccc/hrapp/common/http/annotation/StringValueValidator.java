@@ -3,8 +3,6 @@ package com.ccc.hrapp.common.http.annotation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.util.StringUtils;
-
 public class StringValueValidator implements ConstraintValidator<StringValue, String> {
     private boolean isRequired;
 
@@ -16,7 +14,7 @@ public class StringValueValidator implements ConstraintValidator<StringValue, St
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
         if (isRequired) {
-            return !StringUtils.isEmpty(value);
+            return value != null && !value.trim().equals("");
         }
         return true;
     }

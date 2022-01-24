@@ -12,7 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ccc.hrapp.department.Department;
+import com.ccc.hrapp.department.employee.dto.EmployeeDto;
+import com.ccc.hrapp.department.employee.dto.ViewEmployeeDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "employee")
 public class Employee implements Comparable<Employee> {
@@ -44,6 +48,22 @@ public class Employee implements Comparable<Employee> {
 	@ManyToOne
 	@JoinColumn(name = "department_id")
 	private Department department;
+
+
+	public Employee(Department department, EmployeeDto dto) {
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.address = dto.getAddress();
+		this.department = department;
+	}
+
+	public ViewEmployeeDto view() {
+		return new ViewEmployeeDto()
+				.setId(id)
+				.setName(name)
+				.setEmail(email)
+				.setAddress(address);
+	}
 
 	@Override
 	public boolean equals(Object o) {

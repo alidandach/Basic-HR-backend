@@ -6,7 +6,6 @@ import javax.validation.ConstraintViolationException;
 import com.ccc.hrapp.common.http.dto.ApplicationException;
 import com.ccc.hrapp.common.http.dto.ClientData;
 import com.ccc.hrapp.common.http.dto.ClientResponse;
-import com.ccc.hrapp.common.http.dto.Error;
 import com.ccc.hrapp.common.http.dto.Violation;
 import com.ccc.hrapp.common.http.enums.StatusCode;
 import lombok.extern.slf4j.Slf4j;
@@ -80,9 +79,11 @@ public class GlobalExceptionController {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(value = ApplicationException.class)
-	public ClientResponse<ClientData> exception(ApplicationException exception) {
+	public ClientResponse<ClientData> applicationException(ApplicationException exception) {
 		log.warn(exception.getLogMessage(), (Object) exception.getParameters());
-		return new ClientResponse<>(exception.getStatusCode(), new Error(exception.getClientMessage()));
+		ClientResponse<ClientData> response = new ClientResponse<>(StatusCode.ILLEGAL_OPERATION);
+		response.addError(exception.getClientMessage());
+		return response;
 	}
 
 }
