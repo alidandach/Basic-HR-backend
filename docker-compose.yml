@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   hr-app:
-    image: 'hr-app:latest'
+    image: 'alidandach/hr-app:latest'
     build:
       context: .
     container_name: hr-app

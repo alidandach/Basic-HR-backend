@@ -12,8 +12,7 @@ The docker-compose has three phases to run this application:
 ### Run Instruction using docker:
 1. clone the project
 2. navigate to the project director
-3. `docker build . -t hr-app:latest`
-4. `docker-compose up`
+3. `docker-compose up`
 
 ###### Note: The running container reserve the port 9595 for API and you can change it from `docker-compose.yml` and after you finish please run this command `docker-compose down --volumes`
 
