@@ -29,3 +29,63 @@ The docker-compose has three phases to run this application:
 - You have the postman collection `Challenge 1.postman_collection.json`
 - Also, I put swagger `http://localhost:9595/swagger-ui`
 - I write test cases
+
+### Sample of API response:
+
+
+`{
+"status": "Illegal operation",
+"code": 2005,
+"errorDetails": [
+{
+"reason": "the department name cannot be null or empty"
+}
+]
+}`
+
+`{
+"status": "Success",
+"code": 1000
+}`
+
+`{
+"status": "Illegal operation",
+"code": 2005,
+"errorDetails": [
+{
+"reason": "Duplicate Record"
+}
+]
+}`
+
+`{
+"status": "Invalid Method Argument",
+"code": 2001,
+"errorDetails": [
+{
+"reason": "Required request body is missing"
+}
+]
+}`
+
+`{
+"id": 1,
+"employees": {
+"totalPages": 2,
+"totalElements": 4,
+"data": [
+{
+"id": 3,
+"name": "X3",
+"email": "X3@ccc.net",
+"address": "LEB"
+},
+{
+"id": 4,
+"name": "X4",
+"email": "X4@ccc.net",
+"address": "LEB"
+}
+]
+}
+}`

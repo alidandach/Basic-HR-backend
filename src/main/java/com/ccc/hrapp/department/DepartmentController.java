@@ -47,7 +47,7 @@ public class DepartmentController {
 	 * @return client response
 	 */
 	@PostMapping("/{name}/employee")
-	public ClientResponse<ClientData> addEmployeesAndAssignThemToDepartments(@PathVariable String name, @Valid EmployeeDto request) {
+	public ClientResponse<ClientData> addEmployeesAndAssignThemToDepartments(@PathVariable String name, @Valid @RequestBody EmployeeDto request) {
 		departmentService.assignEmployeeToDepartment(name, request);
 		return new ClientResponse<>(StatusCode.SUCCESS);
 	}

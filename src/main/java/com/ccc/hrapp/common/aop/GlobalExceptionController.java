@@ -16,6 +16,7 @@ import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,7 +58,23 @@ public class GlobalExceptionController {
 	@ExceptionHandler(value = {HttpMessageConversionException.class})
 	public ClientResponse<ClientData> badHttpParsing(HttpMessageConversionException exception) {
 		log.warn(exception.getMessage());
-		return new ClientResponse<>(StatusCode.INVALID_METHOD_ARGUMENTS);
+
+		ClientResponse<ClientData> response = new ClientResponse<>(StatusCode.INVALID_METHOD_ARGUMENTS);
+		response.addError("Required request body is missing");
+		return response;
+	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = {MissingServletRequestParameterException.class})
+	public ClientResponse<ClientData> missingRequestsParameter(MissingServletRequestParameterException exception) {
+		log.warn(exception.getMessage());
+
+		ClientResponse<ClientData> response = new ClientResponse<>(StatusCode.INVALID_PARAMETERS);
+
+		response.addViolation(new Violation(exception.getParameterName(), exception.getParameterType()));
+
+		return response;
 	}
 
 	@ResponseBody

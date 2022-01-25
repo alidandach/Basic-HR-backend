@@ -28,6 +28,7 @@ public class EmployeeService {
 					throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "employee {} already exist", employee.getId());
 				});
 
+		//save the data
 		employeeRepository.save(new Employee(department, request));
 	}
 
@@ -50,17 +51,18 @@ public class EmployeeService {
 		Employee employee = employeeRepository.findById(employeeId)
 				.orElseThrow(() -> new ApplicationException(StatusCode.RECORD_NOT_FOUND, "employee with id {} not found", employeeId));
 
-		//check if the email is changed
+		//check if the email is taken by someone
 		if (!employee.getEmail().equals(request.getEmail())) {
 			employeeRepository.findByEmail(request.getEmail())
 					.ifPresent(i -> {
-						throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "employee with email {} already exist", i.getEmail());
+						throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "cannot update email of the employee {} because already exist", request.getName());
 					});
-			employee.setEmail(request.getEmail());
 		}
 
-		employee.setName(request.getName());
-		employee.setAddress(request.getAddress());
+		//update the data
+		employee.update(request);
+
+		//save the change
 		employeeRepository.save(employee);
 	}
 }

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ccc.hrapp.common.http.dto.ApplicationException;
+import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.Department;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
 import com.ccc.hrapp.department.employee.dto.ViewEmployeeDto;
@@ -51,6 +53,13 @@ public class Employee implements Comparable<Employee> {
 
 
 	public Employee(Department department, EmployeeDto dto) {
+		if (dto.getName() == null || dto.getEmail() == null || dto.getAddress() == null)
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the employee data cannot be null");
+
+
+		if (dto.getName().trim().equals("") || dto.getEmail().trim().equals("") || dto.getAddress().trim().equals(""))
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the employee data cannot be empty");
+
 		this.name = dto.getName();
 		this.email = dto.getEmail();
 		this.address = dto.getAddress();
@@ -63,6 +72,21 @@ public class Employee implements Comparable<Employee> {
 				.setName(name)
 				.setEmail(email)
 				.setAddress(address);
+	}
+
+	public void update(EmployeeDto dto) {
+		if (dto.getName() != null && dto.getName().trim().equals(""))
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "cannot update employee name to empty");
+
+		if (dto.getEmail() != null && dto.getEmail().trim().equals(""))
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "cannot update employee email to empty");
+
+		if (dto.getAddress() != null && dto.getAddress().trim().equals(""))
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "cannot update employee address to empty");
+
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.address = dto.getAddress();
 	}
 
 	@Override
