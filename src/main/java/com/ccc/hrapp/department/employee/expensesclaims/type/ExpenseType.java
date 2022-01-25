@@ -1,8 +1,7 @@
-package com.ccc.hrapp.department;
+package com.ccc.hrapp.department.employee.expensesclaims.type;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +15,9 @@ import javax.persistence.Table;
 
 import com.ccc.hrapp.common.http.dto.ApplicationException;
 import com.ccc.hrapp.common.http.enums.StatusCode;
-import com.ccc.hrapp.department.employee.Employee;
+import com.ccc.hrapp.department.employee.expensesclaims.entry.ExpenseClaimEntry;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,44 +25,30 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@Table(name = "department")
-@Accessors(chain = true)
-public class Department {
+@Table(name = "expense_type")
+public class ExpenseType {
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "incrementDomain")
 	@GenericGenerator(name = "incrementDomain", strategy = "increment")
 	private Integer id;
 
-
-	@Column(name = "department_name", unique = true, nullable = false)
+	@Column(name = "expense_type_name", unique = true, nullable = false)
 	private String name;
 
 	@MapKey(name = "id")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	private Map<Integer, Employee> employees;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveType")
+	private Map<Integer, ExpenseClaimEntry> expenseClaimEntries;
 
-	public Department() {
-		this.employees = new HashMap<>();
+	public ExpenseType() {
+		this.expenseClaimEntries = new HashMap<>();
 	}
 
-	public Department(String name) {
+	public ExpenseType(String name) {
 		if (name == null || name.equals(""))
-			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the department name cannot be null or empty");
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the expense type name cannot be null or empty");
 		this.name = name;
-		this.employees = new HashMap<>();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Department)) return false;
-		Department that = (Department) o;
-		return getId().equals(that.getId());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(getId());
+		this.expenseClaimEntries = new HashMap<>();
 	}
 }

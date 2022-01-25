@@ -1,4 +1,4 @@
-package com.ccc.hrapp.department;
+package com.ccc.hrapp.department.employee.leave.type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,10 +16,9 @@ import javax.persistence.Table;
 
 import com.ccc.hrapp.common.http.dto.ApplicationException;
 import com.ccc.hrapp.common.http.enums.StatusCode;
-import com.ccc.hrapp.department.employee.Employee;
+import com.ccc.hrapp.department.employee.leave.Leave;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,44 +26,44 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@Table(name = "department")
-@Accessors(chain = true)
-public class Department {
+@Table(name = "leave_type")
+public class LeaveType {
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "incrementDomain")
 	@GenericGenerator(name = "incrementDomain", strategy = "increment")
 	private Integer id;
 
-
-	@Column(name = "department_name", unique = true, nullable = false)
+	@Column(name = "leave_type_name", unique = true, nullable = false)
 	private String name;
 
 	@MapKey(name = "id")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	private Map<Integer, Employee> employees;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveType")
+	private Map<Integer, Leave> leaves;
 
-	public Department() {
-		this.employees = new HashMap<>();
+	public LeaveType() {
+		this.leaves = new HashMap<>();
 	}
 
-	public Department(String name) {
+	public LeaveType(String name) {
 		if (name == null || name.equals(""))
-			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the department name cannot be null or empty");
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the leave type name cannot be null or empty");
 		this.name = name;
-		this.employees = new HashMap<>();
+		this.leaves = new HashMap<>();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Department)) return false;
-		Department that = (Department) o;
-		return getId().equals(that.getId());
+		if (!(o instanceof LeaveType)) return false;
+		LeaveType leaveType = (LeaveType) o;
+		return Objects.equals(getId(), leaveType.getId());
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(getId());
 	}
+
 }

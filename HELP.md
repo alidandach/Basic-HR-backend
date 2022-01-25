@@ -15,7 +15,7 @@ The docker-compose has three phases to run this application:
 3. `docker build . -t hr-app:latest`
 4. `docker-compose up`
 
-###### Note: The running container reserve the port 9595 for API and you can change it from `docker-compose.yml`
+###### Note: The running container reserve the port 9595 for API and you can change it from `docker-compose.yml` and after you finish please run this command `docker-compose down --volumes`
 
 ### Run Instruction without docker
 - Make sure you have java 11
@@ -30,62 +30,71 @@ The docker-compose has three phases to run this application:
 - Also, I put swagger `http://localhost:9595/swagger-ui`
 - I write test cases
 
-### Sample of API response:
+### Example of API response:
 
-
-`{
-"status": "Illegal operation",
-"code": 2005,
-"errorDetails": [
+```json
 {
-"reason": "the department name cannot be null or empty"
+  "status": "Illegal operation",
+  "code": 2005,
+  "errorDetails": [
+    {
+      "reason": "the department name cannot be null or empty"
+    }
+  ]
 }
-]
-}`
+```
 
-`{
-"status": "Success",
-"code": 1000
-}`
+```json
+{
+  "status": "Success",
+  "code": 1000
+}
+```
 
-`{
-"status": "Illegal operation",
-"code": 2005,
-"errorDetails": [
+```json
 {
-"reason": "Duplicate Record"
+  "status": "Invalid Method Argument",
+  "code": 2001,
+  "errorDetails": [
+    {
+      "reason": "Required request body is missing"
+    }
+  ]
 }
-]
-}`
+```
 
-`{
-"status": "Invalid Method Argument",
-"code": 2001,
-"errorDetails": [
+```json
 {
-"reason": "Required request body is missing"
+  "status": "Illegal operation",
+  "code": 2005,
+  "errorDetails": [
+    {
+      "reason": "Duplicate Record"
+    }
+  ]
 }
-]
-}`
+```
 
-`{
-"id": 1,
-"employees": {
-"totalPages": 2,
-"totalElements": 4,
-"data": [
+```json
 {
-"id": 3,
-"name": "X3",
-"email": "X3@ccc.net",
-"address": "LEB"
-},
-{
-"id": 4,
-"name": "X4",
-"email": "X4@ccc.net",
-"address": "LEB"
+  "id": 1,
+  "employees": {
+    "totalPages": 2,
+    "totalElements": 4,
+    "data": [
+      {
+        "id": 3,
+        "name": "X3",
+        "email": "X3@ccc.net",
+        "address": "LEB"
+      },
+      {
+        "id": 4,
+        "name": "X4",
+        "email": "X4@ccc.net",
+        "address": "LEB"
+      }
+    ]
+  }
 }
-]
-}
-}`
+```

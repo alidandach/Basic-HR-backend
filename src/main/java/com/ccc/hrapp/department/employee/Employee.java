@@ -1,14 +1,19 @@
 package com.ccc.hrapp.department.employee;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ccc.hrapp.common.http.dto.ApplicationException;
@@ -16,8 +21,8 @@ import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.Department;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
 import com.ccc.hrapp.department.employee.dto.ViewEmployeeDto;
+import com.ccc.hrapp.department.employee.leave.Leave;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +32,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "employee")
 public class Employee implements Comparable<Employee> {
@@ -51,6 +55,13 @@ public class Employee implements Comparable<Employee> {
 	@JoinColumn(name = "department_id")
 	private Department department;
 
+	@MapKey(name = "id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveType")
+	private Map<Integer, Leave> leaves;
+
+	public Employee() {
+		this.leaves = new HashMap<>();
+	}
 
 	public Employee(Department department, EmployeeDto dto) {
 		if (dto.getName() == null || dto.getEmail() == null || dto.getAddress() == null)
@@ -64,6 +75,7 @@ public class Employee implements Comparable<Employee> {
 		this.email = dto.getEmail();
 		this.address = dto.getAddress();
 		this.department = department;
+		this.leaves = new HashMap<>();
 	}
 
 	public ViewEmployeeDto view() {

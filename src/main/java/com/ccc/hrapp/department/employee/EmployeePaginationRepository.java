@@ -1,7 +1,6 @@
-package com.ccc.hrapp.department.employee.leave;
+package com.ccc.hrapp.department.employee;
 
 import com.ccc.hrapp.department.Department;
-import com.ccc.hrapp.department.employee.Employee;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

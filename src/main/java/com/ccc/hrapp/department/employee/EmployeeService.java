@@ -7,7 +7,6 @@ import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.Department;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
 import com.ccc.hrapp.department.employee.dto.ViewEmployeePage;
-import com.ccc.hrapp.department.employee.leave.EmployeePaginationRepository;
 import lombok.AllArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -25,7 +24,7 @@ public class EmployeeService {
 		//check if the employee exist
 		employeeRepository.findByEmail(request.getEmail())
 				.ifPresent(employee -> {
-					throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "employee {} already exist", employee.getId());
+					throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "the employee {} already exist", employee.getId());
 				});
 
 		//save the data

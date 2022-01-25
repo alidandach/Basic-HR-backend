@@ -23,7 +23,7 @@ public class DepartmentService {
 	public void addDepartment(String name) {
 		//check if the department exist
 		departmentRepository.findByName(name).ifPresent(s -> {
-			throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "duplicate in department name {}", name);
+			throw new ApplicationException(StatusCode.DUPLICATE_RECORD, "the department name {} is duplicate", name);
 		});
 
 		//save the data
@@ -35,7 +35,7 @@ public class DepartmentService {
 
 	public Department get(String name) {
 		return departmentRepository.findByName(name)
-				.orElseThrow(() -> new ApplicationException(StatusCode.RECORD_NOT_FOUND, "department with name {} not found", name));
+				.orElseThrow(() -> new ApplicationException(StatusCode.RECORD_NOT_FOUND, "the department {} not found", name));
 	}
 
 	public ViewDepartmentDto getDepartmentWithEmployeesPaginated(String departmentName, int pageIndex, int pageSize) {
@@ -54,7 +54,7 @@ public class DepartmentService {
 		employeeService.addEmployee(get(departmentName), request);
 
 		//log
-		log.info("add new employee {} to department {} ", request.getName(), departmentName);
+		log.info("add a new employee {} to {} department", request.getName(), departmentName);
 	}
 
 	public void updateEmployeeExistInDepartment(String departmentName, int employeeId, EmployeeDto request) {
@@ -65,6 +65,6 @@ public class DepartmentService {
 		employeeService.updateEmployee(employeeId, request);
 
 		//log
-		log.info("employee {} is updated his information", request.getName());
+		log.info("the employee {} update his information", request.getName());
 	}
 }

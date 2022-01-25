@@ -1,4 +1,4 @@
-package com.ccc.hrapp.department.employee.leave;
+package com.ccc.hrapp.department.employee.expensesclaims.entry;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ccc.hrapp.department.employee.Employee;
-import com.ccc.hrapp.department.employee.leave.type.LeaveType;
+import com.ccc.hrapp.department.employee.expensesclaims.type.ExpenseType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,8 +24,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "leave")
-public class Leave {
+@Table(name = "expense_claim_entry")
+public class ExpenseClaimEntry {
 
 	@Id
 	@Column(name = "id")
@@ -33,21 +33,21 @@ public class Leave {
 	@GenericGenerator(name = "incrementDomain", strategy = "increment")
 	private Integer id;
 
-	@Column(name = "date_from", nullable = false)
+	@Column(name = "expense_date", nullable = false)
 	private Date createdDate;
 
-	@Column(name = "date_to", nullable = false)
-	private Date updatedDate;
+	@Column(name = "expense_total", nullable = false)
+	private int total;
 
-	@Column(name = "number_of_days", nullable = false)
-	private int numberOfDays;
+	@Column(name = "expense_description", nullable = false)
+	private String description;
 
-	@Column(name = "note", nullable = false)
-	private String note;
+	@Column(name = "expense_status", nullable = false)
+	private String status;
 
 	@ManyToOne
-	@JoinColumn(name = "leave_type_id")
-	private LeaveType leaveType;
+	@JoinColumn(name = "expense_type_id")
+	private ExpenseType leaveType;
 
 	@ManyToOne
 	@JoinColumn(name = "employee_id")

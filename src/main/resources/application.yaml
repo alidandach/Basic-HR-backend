@@ -41,9 +41,6 @@ spring:
   output:
     ansi:
       enabled: always
-  sql:
-    init:
-      data-locations: classpath*:schema.sql
 
 logging:
   config: src/main/resources/log4j2.xml
