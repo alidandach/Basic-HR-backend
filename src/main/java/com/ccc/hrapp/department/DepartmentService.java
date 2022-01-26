@@ -3,9 +3,12 @@ package com.ccc.hrapp.department;
 import com.ccc.hrapp.common.http.dto.ApplicationException;
 import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.dto.ViewDepartmentDto;
+import com.ccc.hrapp.department.employee.Employee;
 import com.ccc.hrapp.department.employee.EmployeeService;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
 import com.ccc.hrapp.department.employee.dto.ViewEmployeePage;
+import com.ccc.hrapp.department.employee.leaverequest.LeaveRequestService;
+import com.ccc.hrapp.department.employee.leaverequest.dto.AddLeaveRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class DepartmentService {
+	private final LeaveRequestService leaveRequestService;
+
 	private final EmployeeService employeeService;
 
 	private final DepartmentRepository departmentRepository;
@@ -59,12 +64,26 @@ public class DepartmentService {
 
 	public void updateEmployeeExistInDepartment(String departmentName, int employeeId, EmployeeDto request) {
 		//check if the department exist
-		get(departmentName);
+		Department department = get(departmentName);
+
+		//get the employee
+		Employee employee = department.getEmployee(employeeId);
 
 		//update the data
-		employeeService.updateEmployee(employeeId, request);
+		employeeService.updateEmployee(employee, request);
 
 		//log
 		log.info("the employee {} update his information", request.getName());
+	}
+
+	public void submitLeaveRequest(String departmentName, int employeeId, AddLeaveRequestDto request) {
+		//check if the department exist
+		Department department = get(departmentName);
+
+		//get the employee
+		Employee employee = department.getEmployee(employeeId);
+
+		//add the request
+		leaveRequestService.submitLeaveRequest(employee, request);
 	}
 }

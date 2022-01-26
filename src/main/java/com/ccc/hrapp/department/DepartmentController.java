@@ -8,6 +8,7 @@ import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.dto.AddDepartmentDto;
 import com.ccc.hrapp.department.dto.ViewDepartmentDto;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
+import com.ccc.hrapp.department.employee.leaverequest.dto.AddLeaveRequestDto;
 import lombok.AllArgsConstructor;
 
 import org.springframework.validation.annotation.Validated;
@@ -83,4 +84,17 @@ public class DepartmentController {
 	}
 
 
+	/**
+	 * Submit leave request
+	 *
+	 * @param name department name
+	 * @param id employee id
+	 * @return client response
+	 */
+	@PostMapping("/{name}/employee/{id}/leave")
+	public ClientResponse<ClientData> submitLeaveRequest(@PathVariable(name = "name") String name,
+			@PathVariable(name = "id") int id,@Valid @RequestBody AddLeaveRequestDto request) {
+		departmentService.submitLeaveRequest(name, id, request);
+		return new ClientResponse<>(StatusCode.SUCCESS);
+	}
 }

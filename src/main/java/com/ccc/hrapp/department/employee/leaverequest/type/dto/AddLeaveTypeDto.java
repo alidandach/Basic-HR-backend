@@ -1,4 +1,4 @@
-package com.ccc.hrapp.department.employee.leave.type.dto;
+package com.ccc.hrapp.department.employee.leaverequest.type.dto;
 
 import com.ccc.hrapp.common.http.annotation.StringValue;
 import lombok.Getter;

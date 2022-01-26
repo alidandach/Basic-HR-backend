@@ -21,7 +21,7 @@ import com.ccc.hrapp.common.http.enums.StatusCode;
 import com.ccc.hrapp.department.Department;
 import com.ccc.hrapp.department.employee.dto.EmployeeDto;
 import com.ccc.hrapp.department.employee.dto.ViewEmployeeDto;
-import com.ccc.hrapp.department.employee.leave.Leave;
+import com.ccc.hrapp.department.employee.leaverequest.LeaveRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -56,11 +56,11 @@ public class Employee implements Comparable<Employee> {
 	private Department department;
 
 	@MapKey(name = "id")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveType")
-	private Map<Integer, Leave> leaves;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	private Map<Integer, LeaveRequest> leaveRequests;
 
 	public Employee() {
-		this.leaves = new HashMap<>();
+		this.leaveRequests = new HashMap<>();
 	}
 
 	public Employee(Department department, EmployeeDto dto) {
@@ -75,7 +75,7 @@ public class Employee implements Comparable<Employee> {
 		this.email = dto.getEmail();
 		this.address = dto.getAddress();
 		this.department = department;
-		this.leaves = new HashMap<>();
+		this.leaveRequests = new HashMap<>();
 	}
 
 	public ViewEmployeeDto view() {

@@ -79,18 +79,18 @@ VALUES ('LEB', 'Y19@ccc.net', 'Y19', 2);
 INSERT INTO app.employee (employee_address, employee_email, employee_name, department_id)
 VALUES ('LEB', 'Y20@ccc.net', 'Y20', 2);
 
-CREATE TABLE IF NOT EXISTS app.leave_type
+CREATE TABLE IF NOT EXISTS app.leave_request_type
 (
     id              SERIAL PRIMARY KEY,
-    leave_type_name character varying(255) UNIQUE NOT NULL
+    leave_request_type_name character varying(255) UNIQUE NOT NULL
 );
 
-INSERT INTO app.leave_type (leave_type_name)
+INSERT INTO app.leave_request_type (leave_request_type_name)
 VALUES ('sick');
-INSERT INTO app.leave_type (leave_type_name)
+INSERT INTO app.leave_request_type (leave_request_type_name)
 VALUES ('urgent');
 
-CREATE TABLE IF NOT EXISTS app.leave
+CREATE TABLE IF NOT EXISTS app.leave_request
 (
     id             SERIAL PRIMARY KEY,
     date_from      timestamp without time zone NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS app.leave
     number_of_days integer                     NOT NULL,
     note           character varying(255)      NOT NULL,
     employee_id    integer references app.employee (id),
-    leave_type_id  integer references app.leave_type (id)
+    leave_type_id  integer references app.leave_request_type (id)
 );
 
 CREATE TABLE IF NOT EXISTS app.expense_type

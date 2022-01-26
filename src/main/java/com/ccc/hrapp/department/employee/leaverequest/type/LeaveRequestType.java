@@ -1,4 +1,4 @@
-package com.ccc.hrapp.department.employee.leave.type;
+package com.ccc.hrapp.department.employee.leaverequest.type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import com.ccc.hrapp.common.http.dto.ApplicationException;
 import com.ccc.hrapp.common.http.enums.StatusCode;
-import com.ccc.hrapp.department.employee.leave.Leave;
+import com.ccc.hrapp.department.employee.leaverequest.LeaveRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +26,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@Table(name = "leave_type")
-public class LeaveType {
+@Table(name = "leave_request_type")
+public class LeaveRequestType {
 
 	@Id
 	@Column(name = "id")
@@ -35,20 +35,20 @@ public class LeaveType {
 	@GenericGenerator(name = "incrementDomain", strategy = "increment")
 	private Integer id;
 
-	@Column(name = "leave_type_name", unique = true, nullable = false)
+	@Column(name = "leave_request_type_name", unique = true, nullable = false)
 	private String name;
 
 	@MapKey(name = "id")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveType")
-	private Map<Integer, Leave> leaves;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "leaveRequestType")
+	private Map<Integer, LeaveRequest> leaves;
 
-	public LeaveType() {
+	public LeaveRequestType() {
 		this.leaves = new HashMap<>();
 	}
 
-	public LeaveType(String name) {
+	public LeaveRequestType(String name) {
 		if (name == null || name.equals(""))
-			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the leave type name cannot be null or empty");
+			throw new ApplicationException(StatusCode.ILLEGAL_OPERATION, "the leave request type name cannot be null or empty");
 		this.name = name;
 		this.leaves = new HashMap<>();
 	}
@@ -56,9 +56,9 @@ public class LeaveType {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof LeaveType)) return false;
-		LeaveType leaveType = (LeaveType) o;
-		return Objects.equals(getId(), leaveType.getId());
+		if (!(o instanceof LeaveRequestType)) return false;
+		LeaveRequestType leaveRequestType = (LeaveRequestType) o;
+		return Objects.equals(getId(), leaveRequestType.getId());
 	}
 
 	@Override

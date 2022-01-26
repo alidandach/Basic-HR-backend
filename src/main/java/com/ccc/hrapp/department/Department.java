@@ -55,6 +55,17 @@ public class Department {
 		this.employees = new HashMap<>();
 	}
 
+	public Employee getEmployee(int employeeId){
+		//get the employee
+		Employee employee = employees.get(employeeId);
+
+		//check if the employee exist
+		if (employee == null)
+			throw new ApplicationException(StatusCode.RECORD_NOT_FOUND, "the employee with id {} not found", employeeId);
+
+		return employee;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

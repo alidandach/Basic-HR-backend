@@ -45,11 +45,7 @@ public class EmployeeService {
 						.collect(Collectors.toList()));
 	}
 
-	public void updateEmployee(int employeeId, EmployeeDto request) {
-		//check if the employee exist
-		Employee employee = employeeRepository.findById(employeeId)
-				.orElseThrow(() -> new ApplicationException(StatusCode.RECORD_NOT_FOUND, "employee with id {} not found", employeeId));
-
+	public void updateEmployee(Employee employee, EmployeeDto request) {
 		//check if the email is taken by someone
 		if (!employee.getEmail().equals(request.getEmail())) {
 			employeeRepository.findByEmail(request.getEmail())
