@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "68a0e042-ff8f-4a81-9ed7-e77d47d9c75b",
+		"name": "HR Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List employees by department",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9595/department/HR/employee?pageIndex=0&pageSize=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"department",
+						"HR",
+						"employee"
+					],
+					"query": [
+						{
+							"key": "pageIndex",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "4"
+						}
+					]
+				},
+				"description": "List employees by department"
+			},
+			"response": []
+		},
+		{
+			"name": "Define department",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"HR\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/department",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"department"
+					]
+				},
+				"description": "Define department"
+			},
+			"response": []
+		},
+		{
+			"name": "Add employees and assign them to departments",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"X10\",\n  \"email\": \"X10@ccc.net\",\n  \"address\":\"LEB\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/department/IT/employee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"department",
+						"IT",
+						"employee"
+					]
+				},
+				"description": "Add employees and assign them to departments"
+			},
+			"response": []
+		},
+		{
+			"name": "Update employee",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"fake_data\",\n  \"email\": \"X2@ccc.net\",\n  \"address\": \"fake_data\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/department/HR/employee/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"department",
+						"HR",
+						"employee",
+						"1"
+					]
+				},
+				"description": "Update employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Define expense type",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"EX01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/expense-type",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"expense-type"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Define leave type",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"LT-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/leave-type",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"leave-type"
+					]
+				},
+				"description": "Define leave type"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit leave request",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"leaveRequestType\": \"sick\",\n  \"from\": \"26-01-2022\",\n  \"to\": \"27-01-2022\",\n  \"note\":\"notes...\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9595/department/HR/employee/3/leave",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9595",
+					"path": [
+						"department",
+						"HR",
+						"employee",
+						"3",
+						"leave"
+					]
+				},
+				"description": "Submit leave request"
+			},
+			"response": []
+		}
+	]
+}

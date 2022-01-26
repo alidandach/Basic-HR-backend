@@ -25,7 +25,7 @@ The docker-compose has three phases to run this application:
 
 
 ### Overall:
-- You have the postman collection `Challenge 1.postman_collection.json`
+- You have the postman collection `HR Application.postman_collection.json`
 - Also, I put swagger `http://localhost:9595/swagger-ui`
 - I write test cases
 
@@ -69,6 +69,19 @@ The docker-compose has three phases to run this application:
   "errorDetails": [
     {
       "reason": "Duplicate Record"
+    }
+  ]
+}
+```
+
+```json
+{
+  "status": "Validation Failure",
+  "code": 2000,
+  "violations": [
+    {
+      "fieldName": "address",
+      "message": "Invalid string value"
     }
   ]
 }
